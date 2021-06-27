@@ -5,14 +5,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const _ = require('lodash');
-// const User = require('../models/user'); 
 const {User, validate} = require('../models/user'); 
 const mongoose = require('mongoose');
 const express = require('express');
 let bodyParser = require('body-parser');
 const router = express.Router();
  
-// create application/x-www-form-urlencoded parser
 let jsonParser = bodyParser.json();
 
 router.post('/', jsonParser, async (req, res) => {

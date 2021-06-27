@@ -10,7 +10,6 @@ const express = require('express');
 const router = express.Router();
 mongoose.set('useFindAndModify', false);
  
-// create application/json parser
 let jsonParser = bodyParser.json()
 
 
@@ -21,10 +20,6 @@ router.post('/', jsonParser, async (req, res) => {
     if (user) return res.status(400).send('User already registered.');
 
     user = new User(_.pick(req.body, ['login', 'password']));
-    // user = new User({           // то же самое
-    //     login: req.body.login,
-    //     password: req.body.password
-    // })
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
@@ -33,9 +28,6 @@ router.post('/', jsonParser, async (req, res) => {
 
     const token = user.generateAuthToken();
     res.header('x-auth-token', token).send(_.pick(user, ['login']));
-    // res.send({           // то же самое
-    //     login: user.login,
-    // });
 });
 
 module.exports = router;

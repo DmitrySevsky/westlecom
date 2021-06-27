@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 const express = require("express");
 const app = express();
 
-// set westlecom_jwtPrivateKey=secretKey123 (только от имени администратора)
-
 if (!config.get('jwtPrivateKey')) {
     console.error('FATAL ERROR: jwtPrivateKey if not defined.');
     process.exit(1);
@@ -20,11 +18,6 @@ mongoose.connect('mongodb://localhost/westlecom', {
     useUnifiedTopology: true
 }).then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.log('Could not connect to MongoDB...', err));
-
-// const regchema = new mongoose.Schema({
-//     login: String,
-//     password: String
-// });
 
 app.use(express.json());
 app.use('/api/articles', articles);
